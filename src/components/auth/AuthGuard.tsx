@@ -15,9 +15,30 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       setLoading(true);
       const { data: { session } } = await supabase.auth.getSession();
       
-      if (!session && pathname !== '/login') {
+      if (!session) {
+        if (pathname !== '/login') {
+          router.push('/login');
+        } else {
+          setLoading(false);
+        }
+        return;
+      }
+
+      // 관리자 권한 확인
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('gear_admin')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error || !profile?.gear_admin) {
+        alert('이 시스템에 대한 관리자 권한이 없습니다.');
+        await supabase.auth.signOut();
         router.push('/login');
-      } else if (session && pathname === '/login') {
+        return;
+      }
+
+      if (pathname === '/login') {
         router.push('/');
       } else {
         setLoading(false);
