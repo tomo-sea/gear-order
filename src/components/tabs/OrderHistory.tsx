@@ -958,7 +958,7 @@ const OrderHistory = ({ isActive = false, onEdit }: { isActive?: boolean; onEdit
                               <input 
                                type="number" 
                                className="w-14 bg-slate-50 rounded-lg px-2 py-1 text-[16px] font-medium text-[#0064DE] text-center border-none outline-none"
-                               value={editingOrder.discount_rate ?? TIER_DISCOUNT_MAP[editingOrder.customer?.dealer_tier || ''] ?? 0}
+                               value={editingOrder.discount_rate ?? tierDiscounts[editingOrder.customer?.dealer_tier || ''] ?? 0}
                                onChange={(e) => updateEditingOrder('discount_rate', parseInt(e.target.value) || 0)}
                               />
                               <span className="text-[16px] font-medium text-[#0064DE]">%</span>
@@ -967,7 +967,7 @@ const OrderHistory = ({ isActive = false, onEdit }: { isActive?: boolean; onEdit
                         <div className="space-y-3">
                            <div className="flex justify-between text-[14px] font-medium text-slate-400"><span>총 소비자가 정가 합계</span><span>₩ {totalRetail.toLocaleString()}</span></div>
                            <div className="flex justify-between text-[15px] font-bold text-[#0064DE] bg-blue-50/50 px-3 py-2 rounded-xl mt-1">
-                             <span>할인 적용 후 상품 합계 (-{editingOrder.discount_rate ?? TIER_DISCOUNT_MAP[editingOrder.customer?.dealer_tier || ''] ?? 0}%)</span>
+                             <span>할인 적용 후 상품 합계 (-{editingOrder.discount_rate ?? tierDiscounts[editingOrder.customer?.dealer_tier || ''] ?? 0}%)</span>
                              <span>₩ {itemsSubtotal.toLocaleString()}</span>
                            </div>
                            <div className="flex justify-between text-[14px] font-medium text-slate-600"><span>총 발송비</span><span>₩ {shippingFee.toLocaleString()}</span></div>

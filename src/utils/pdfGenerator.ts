@@ -26,7 +26,6 @@ export interface QuoteData {
     address: string;
   };
   orderNote?: string;
-  orderNote?: string;
   orderDate?: string;
   isJeju?: boolean;
   manualDiscount?: number;

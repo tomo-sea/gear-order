@@ -165,7 +165,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
       <div className="p-4 border-t border-white/5">
-        <div className="bg-white/5 rounded-3xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-all">
+        <div 
+          onClick={async () => {
+            if (confirm('로그아웃 하시겠습니까?')) {
+              await supabase.auth.signOut();
+            }
+          }}
+          className="bg-white/5 rounded-3xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-all active:scale-95"
+        >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#0064DE] to-[#3B82F6] flex items-center justify-center font-light text-[14px] shadow-lg text-white">
               TM

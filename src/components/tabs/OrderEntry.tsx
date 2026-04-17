@@ -13,10 +13,11 @@ import {
   Building2,
   Zap,
   RotateCcw,
-  FileText
+  FileText,
+  AlertCircle
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { PRODUCT_XT_FIN, KOREAN_COLOR_MAP, KOREAN_SIZE_MAP } from '@/constants/products';
+import { PRODUCT_XT_FIN } from '@/constants/products';
 import { format } from 'date-fns';
 import { generateQuotePDF } from '@/utils/pdfGenerator';
 
@@ -43,6 +44,9 @@ interface Customer {
   ceo_name?: string;
   phone?: string;
   address?: string;
+  biz_number?: string;
+  email?: string;
+  instructor_rank?: string;
 }
 
 const KOREAN_COLOR_MAP: Record<string, string> = {
@@ -943,7 +947,7 @@ const OrderEntry = ({ initialOrder, onClear }: { initialOrder?: any; onClear?: (
                        <FileText className="w-4 h-4" />
                        PDF
                      </button>
-                     <button onClick={handleSaveQuote} disabled={isUpdating} className="flex items-center justify-center gap-2 py-3 bg-blue-600 rounded-xl font-bold shadow-xl shadow-blue-900/50 hover:bg-blue-500 active:scale-[0.98] transition-all relative z-10">
+                     <button onClick={() => handleSaveQuote()} disabled={isUpdating} className="flex items-center justify-center gap-2 py-3 bg-blue-600 rounded-xl font-bold shadow-xl shadow-blue-900/50 hover:bg-blue-500 active:scale-[0.98] transition-all relative z-10">
                         {isUpdating ? <RotateCcw className="w-4 h-4 animate-spin" /> : '저장'}
                      </button>
                   </div>
